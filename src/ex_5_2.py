@@ -28,3 +28,4 @@ if __name__ == "__main__":
     processed = data
     # Save the output to OUTFILE using numpy routines.
     np.savetxt(OUTFILE, processed, delimiter=',')
+
