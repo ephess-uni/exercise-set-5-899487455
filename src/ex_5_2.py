@@ -1,17 +1,30 @@
-import argparse
+""" ex_5_2.py
+This module contains an entry point that
+
+- loads data from a file `ex_5_2-data.csv` into a numpy array
+- shifts and scales the data such that the resulting mean
+        is 0 and the standard deviation is 1.
+- writes the processed data to a file called `ex_5_2-processed.csv`
+"""
 import numpy as np
-import pandas as pd
 
-def scale(infile, outfile):
-    data = pd.read_csv(infile)
-    data_scaled = (data - np.mean(data)) / np.std(data)
-    data_scaled.to_csv(outfile, index=False)
+try:
+    from src.util import get_repository_root
+except ImportError:
+    from util import get_repository_root
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='This program applies a standard scale transform to the data in infile and writes it to outfile.')
-    parser.add_argument('infile', help='input filename for the data file that needs to be processed')
-    parser.add_argument('outfile', help='output filename')
-    args = parser.parse_args()
 
-    scale(args.infile, args.outfile)
+if __name__ == "__main__":
 
+    # Use these predefined input / output files
+    root_dir = get_repository_root()
+    INFILE = root_dir / "data" / "ex_5_2-data.csv"
+    OUTFILE = root_dir / "outputs" / "ex_5_2-processed.csv"
+
+    # Complete the data processing steps using numpy here.
+    data = np.loadtxt(INFILE, delimiter=',')
+    data -= np.mean(data)
+    data /= np.std(data)
+    processed = data
+    # Save the output to OUTFILE using numpy routines.
+    np.savetxt(OUTFILE, processed, delimiter=',')
